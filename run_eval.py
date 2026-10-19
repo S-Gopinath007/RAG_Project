@@ -1,27 +1,10 @@
-"""Step 4: benchmark retrieval and calibrate the refusal threshold. No LLM or API key needed.
-
-Usage:
-    python eval/run_eval.py --questions eval/questions.csv
-    python eval/run_eval.py --questions eval/questions.csv --index index_500 --save
-
-questions.csv columns:
-    question    the question text
-    doc         PDF file name that contains the answer (blank if unanswerable)
-    page        page number, or a range like 12-13 (blank if unanswerable)
-    answerable  yes / no
-
-Reports:
-  1. Retrieval quality for dense, bm25 and hybrid: hit-rate@1/3/5 and MRR@5
-  2. Refusal guardrail: for each MIN_SIM, how many unanswerable questions are refused
-     and how many answerable ones are wrongly refused
-"""
 import argparse
 import csv
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-from index import Retriever  # noqa: E402
+from index import Retriever  
 
 K = 5
 MODES = ["dense", "bm25", "hybrid", "rerank"]
@@ -45,10 +28,8 @@ def load_questions(path):
 
 
 def hit(chunk, q):
-    """A chunk is correct if it is in the right document and its pages overlap the answer pages."""
     return (chunk["doc"].lower() == q["doc"]
             and chunk["page_start"] <= q["hi"] and chunk["page_end"] >= q["lo"])
-
 
 def retrieval_metrics(retriever, questions, mode):
     ranks = []

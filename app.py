@@ -8,23 +8,23 @@ import gradio as gr
 import pymupdf
 
 HERE = Path(__file__).resolve().parent
-for p in (HERE, HERE / "src"):  # works whether the scripts sit in ./src or next to app.py
+for p in (HERE, HERE / "src"):  
     if p.is_dir():
         sys.path.insert(0, str(p))
 
-import index  # noqa: E402
-import ingest  # noqa: E402
-import qa  # noqa: E402
+import index  
+import ingest  
+import qa  
 
-MAX_PAGES = 150  # keeps indexing of an uploaded PDF to a few seconds on a small CPU
+MAX_PAGES = 150  
 INDEX_DIR = HERE / "index"
 DEFAULT = index.Retriever(str(INDEX_DIR)) if (INDEX_DIR / "faiss.index").exists() else None
 
-EXAMPLES = [  # only shown when a built-in document is loaded
+EXAMPLES = [  
     "What is the minimum number of clinical isolates recommended per group of organisms?",
     "Which licence form is needed for permission to run a clinical performance evaluation?",
     "How is the minimum inhibitory concentration defined?",
-    "What is the price of the NG-Test CARBA 5 kit?",  # not in the document: should be refused
+    "What is the price of the NG-Test CARBA 5 kit?",  
 ]
 
 
@@ -40,7 +40,7 @@ def doc_names(retriever):
 
 
 def load_pdf(path):
-    if not path:  # upload cleared: go back to the built-in document
+    if not path:  
         return None, default_status()
     name = Path(path).name
     fallback = " Questions will use the built-in document instead." if DEFAULT is not None else ""
@@ -48,23 +48,23 @@ def load_pdf(path):
         with pymupdf.open(path) as doc:
             n_pages = len(doc)
         if n_pages > MAX_PAGES:
-            return None, f"⚠️ **{name}** has {n_pages} pages; the demo accepts up to {MAX_PAGES}.{fallback}"
+            return None, f" **{name}** has {n_pages} pages; the demo accepts up to {MAX_PAGES}.{fallback}"
         chunks = ingest.chunk_pdf(path)
         if not chunks:
-            return None, (f"⚠️ I couldn't find any text in **{name}**. Scanned documents need OCR first."
+            return None, (f" I couldn't find any text in **{name}**. Scanned documents need OCR first."
                           f"{fallback}")
         work = Path(tempfile.mkdtemp())
         chunks_file = work / "chunks.jsonl"
         chunks_file.write_text("\n".join(json.dumps(c, ensure_ascii=False) for c in chunks), encoding="utf-8")
         index.build(str(chunks_file), str(work / "index"))
         retriever = index.Retriever(str(work / "index"))
-    except Exception as e:  # noqa: BLE001 - corrupt/encrypted PDF, out of memory...
-        return None, f"⚠️ Could not process **{name}** ({type(e).__name__}: {str(e)[:120]}).{fallback}"
-    return retriever, f"✅ Ready: **{name}** ({n_pages} pages, {len(chunks)} passages)"
+    except Exception as e:  
+        return None, f" Could not process **{name}** ({type(e).__name__}: {str(e)[:120]}).{fallback}"
+    return retriever, f" Ready: **{name}** ({n_pages} pages, {len(chunks)} passages)"
 
 
 def start_loading(path):
-    msg = "⏳ Reading and indexing your PDF. This can take up to a minute; Ask unlocks when it's ready." \
+    msg = " Reading and indexing your PDF. This can take up to a minute; Ask unlocks when it's ready." \
         if path else default_status()
     return msg, gr.update(interactive=False), gr.update(interactive=False)
 
@@ -74,7 +74,7 @@ def finish_loading():
 
 
 def format_source(s):
-    text = " ".join(s.get("text", "").split())  # older qa.py versions don't return the passage text
+    text = " ".join(s.get("text", "").split())  
     if len(text) > 700:
         text = text[:700].rsplit(" ", 1)[0] + " …"
     return f"**[{s['n']}] {s['doc']}, pages {s['pages']}** · {s['section']}\n\n> {text}"
@@ -89,14 +89,14 @@ def ask(question, retriever):
         raise gr.Error("Type a question first.")
     try:
         result = qa.answer(question, retriever)
-    except RuntimeError as e:  # setup problems: missing key, reply cut off...
+    except RuntimeError as e:  
         raise gr.Error(str(e))
-    except Exception as e:  # noqa: BLE001 - usually a rate limit or network problem
+    except Exception as e:  
         raise gr.Error(f"The language model call failed ({type(e).__name__}). Wait a minute and try again.")
 
-    searched = f"Searched in: {doc_names(retriever)}"  # makes it obvious which document answered
+    searched = f"Searched in: {doc_names(retriever)}"  
     if result["refused"]:
-        return (f"🔍 **{result['answer']}**\n\nThe document may not cover this, or try rephrasing the question."
+        return (f"**{result['answer']}**\n\nThe document may not cover this, or try rephrasing the question."
                 f"\n\n<sub>{searched}</sub>", "")
     sources = "\n\n".join(format_source(s) for s in result["sources"]) or "_The answer cited no sources._"
     return f"{result['answer']}\n\n<sub>{searched} · {qa.DISCLAIMER}</sub>", sources
@@ -104,11 +104,11 @@ def ask(question, retriever):
 
 with gr.Blocks(title="Document Q&A with citations") as demo:
     gr.Markdown(
-        "# 📄 Document Q&A with citations\n"
+        "#  Document Q&A with citations\n"
         "Answers come **only** from the document, and every claim cites its source passage. "
         "If the document doesn't say, the assistant tells you instead of guessing."
     )
-    retriever_state = gr.State(None)  # the visitor's own index, when they upload a PDF
+    retriever_state = gr.State(None)  
     with gr.Row():
         with gr.Column(scale=1):
             upload = gr.File(label="Upload your own PDF (optional)", file_types=[".pdf"], type="filepath")

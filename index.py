@@ -1,12 +1,3 @@
-"""Step 2: build the search index and test hybrid retrieval.
-
-Build:   python src/index.py
-Search:  python src/index.py --query "How often should HbA1c be checked?"
-
-Dense search (embeddings + FAISS) finds meaning; BM25 finds exact terms
-(drug names, abbreviations like HbA1c). Results are merged with
-Reciprocal Rank Fusion (RRF).
-"""
 import argparse
 import json
 import pickle
@@ -18,54 +9,45 @@ import numpy as np
 from fastembed import TextEmbedding
 from rank_bm25 import BM25Okapi
 
-MODEL = "BAAI/bge-small-en-v1.5"  # ~130 MB, runs on CPU via ONNX
+MODEL = "BAAI/bge-small-en-v1.5"  
 MODES = ("dense", "bm25", "hybrid", "rerank")
-RERANK_MODEL = "Xenova/ms-marco-MiniLM-L-6-v2"  # ~90 MB cross-encoder
-
+RERANK_MODEL = "Xenova/ms-marco-MiniLM-L-6-v2"  
 
 _MODELS = {}
 
-
 def get_embedder():
-    """One shared embedding model per process (~130 MB), however many indexes are loaded."""
     if "embedder" not in _MODELS:
         _MODELS["embedder"] = TextEmbedding(MODEL)
     return _MODELS["embedder"]
 
-
 def get_reranker():
-    """One shared cross-encoder per process (~90 MB), loaded on first use."""
     if "reranker" not in _MODELS:
         from fastembed.rerank.cross_encoder import TextCrossEncoder
         _MODELS["reranker"] = TextCrossEncoder(RERANK_MODEL)
     return _MODELS["reranker"]
 
-
 def tokenize(text):
     return re.findall(r"[a-z0-9]+", text.lower())
-
 
 def load_chunks(path):
     with open(path, encoding="utf-8") as f:
         return [json.loads(line) for line in f]
 
-
 def build(chunks_path="data/chunks.jsonl", out_dir="index", batch=32):
     out = Path(out_dir)
     out.mkdir(exist_ok=True)
     chunks = load_chunks(chunks_path)
-    # prepend doc + section so the embedding knows the context
     texts = [f"{c['doc']} | {c['section']}\n{c['text']}" for c in chunks]
 
     model = get_embedder()
     parts = []
-    for i in range(0, len(texts), batch):  # small batches keep RAM low
+    for i in range(0, len(texts), batch):  
         parts.append(np.array(list(model.embed(texts[i:i + batch])), dtype="float32"))
         print(f"embedded {min(i + batch, len(texts))}/{len(texts)}", end="\r")
     vecs = np.vstack(parts)
     faiss.normalize_L2(vecs)
 
-    index = faiss.IndexFlatIP(vecs.shape[1])  # inner product = cosine after normalising
+    index = faiss.IndexFlatIP(vecs.shape[1])  
     index.add(vecs)
     faiss.write_index(index, str(out / "faiss.index"))
 
@@ -74,7 +56,6 @@ def build(chunks_path="data/chunks.jsonl", out_dir="index", batch=32):
     with open(out / "bm25_tokens.pkl", "wb") as f:
         pickle.dump([tokenize(t) for t in texts], f)
     print(f"\nIndexed {len(chunks)} chunks -> {out}/")
-
 
 class Retriever:
     def __init__(self, out_dir="index"):
@@ -85,9 +66,7 @@ class Retriever:
         self.model = get_embedder()
 
     def search(self, query, k=5, pool=20, mode="hybrid"):
-        """Return top-k chunks. mode: 'dense', 'bm25', 'hybrid' or 'rerank'
-        (hybrid top-`pool` candidates re-scored by a cross-encoder)."""
-        if mode not in MODES:  # never fail silently with an empty result
+        if mode not in MODES:  
             raise ValueError(f"unknown mode {mode!r}; choose from {MODES}")
         if mode == "rerank":
             cands = self.search(query, k=pool, pool=pool, mode="hybrid")
@@ -110,12 +89,9 @@ class Retriever:
             for rank, i in enumerate(ranking):
                 fused[i] = fused.get(i, 0.0) + 1.0 / (60 + rank + 1)  # RRF
         top = sorted(fused, key=fused.get, reverse=True)[:k]
-        # cosine similarity (0-1) is comparable across queries, unlike the RRF score,
-        # so the guardrail in qa.py uses it to decide whether to refuse
         return [{**self.chunks[i], "score": round(fused[i], 4),
                  "similarity": round(float(q[0] @ self.index.reconstruct(i)), 3)}
                 for i in top]
-
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

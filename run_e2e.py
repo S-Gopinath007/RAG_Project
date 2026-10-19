@@ -1,26 +1,3 @@
-"""End-to-end benchmark: question -> retrieval -> guardrails -> LLM -> cited answer.
-
-Needs GROQ_API_KEY. Set the same options you use for qa.py first, for example:
-    export GROQ_API_KEY="..."
-    export RETRIEVAL_MODE=rerank
-    export MIN_SCORE=0.3
-    python eval/run_e2e.py --questions eval/questions.csv --save
-
-Measures what retrieval-only evaluation can't:
-  - unanswerable questions: refused (by the score threshold or by the LLM) vs wrongly answered
-  - answerable questions: wrongly refused, and whether the cited source is the right page
-  - latency per question
-
-Threshold sweep (one LLM pass, many thresholds):
-    python eval/run_e2e.py --questions eval/questions.csv --sweep --save
-Calls the LLM for EVERY question (no score threshold), then works out offline what would have
-happened at each threshold. Use it to pick MIN_SCORE for the whole system, not just retrieval.
-
-Free API tiers have rate and daily token limits, so every result is cached in
-eval/e2e_cache.jsonl. If a run stops, run the same command again and it resumes.
-Questions refused by the score threshold make no LLM call, which saves quota.
-For a cheaper run, set GROQ_MODEL=llama-3.1-8b-instant.
-"""
 import argparse
 import json
 import statistics
@@ -32,13 +9,12 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "src"))
 
-import qa  # noqa: E402  (reads RETRIEVAL_MODE / MIN_SCORE / GROQ_MODEL from the environment)
-from index import Retriever  # noqa: E402
-from run_eval import load_questions  # noqa: E402
+import qa  
+from index import Retriever  
+from run_eval import load_questions  
 
 
 def cites_truth(result, q):
-    """True if any cited source is in the right document and its pages overlap the answer page."""
     for s in result["sources"]:
         lo, hi = (int(x) for x in s["pages"].split("-"))
         if s["doc"].lower() == q["doc"] and lo <= q["hi"] and hi >= q["lo"]:
@@ -49,14 +25,10 @@ def cites_truth(result, q):
 TRANSIENT = ("429", "rate limit", "rate_limit", "timeout", "timed out", "overloaded",
              "temporar", "connection", "500", "502", "503")
 
-
 def is_transient(e):
     return any(t in f"{type(e).__name__} {e}".lower() for t in TRANSIENT)
 
-
 def run_one(retriever, question, attempts=4, wait=15, min_score=None):
-    """Run the full pipeline. Rate limits and network hiccups are retried with a growing
-    pause; anything else (missing key, bad model name, bug) fails immediately."""
     for attempt in range(1, attempts + 1):
         t0 = time.perf_counter()
         try:
@@ -69,7 +41,6 @@ def run_one(retriever, question, attempts=4, wait=15, min_score=None):
 
 
 def sweep_report(records):
-    """Metrics of the whole system (threshold + LLM guardrail) at several thresholds, computed offline."""
     ok = [(q, r["result"]) for q, r in records if r["error"] is None]
     ans = [(q, r) for q, r in ok if q["answerable"]]
     unans = [(q, r) for q, r in ok if not q["answerable"]]
@@ -152,7 +123,7 @@ def main():
                 with open(cache_path, "a", encoding="utf-8") as f:
                     f.write(json.dumps(rec, ensure_ascii=False) + "\n")
             if rec["result"] and rec["result"]["refused"] != "low_score":
-                time.sleep(args.delay)  # only LLM calls count against the rate limit
+                time.sleep(args.delay)  
         records.append((q, rec))
         status = "error" if rec["error"] else ("refused" if rec["result"]["refused"] else "answered")
         print(f"[{i}/{len(questions)}] {status}: {q['question'][:70]}")

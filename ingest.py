@@ -38,7 +38,7 @@ def drop_boilerplate(lines):
             continue
         if re.fullmatch(r"\d{1,3}([-–]\d{1,3})?", text):  # '12' or '19-27'
             continue
-        if re.search(r"…{2,}|\.{5,}", text):  # contents-page dotted leaders
+        if re.search(r"…{2,}|\.{5,}", text):  
             continue
         kept.append(line)
     return kept
