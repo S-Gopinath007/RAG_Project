@@ -1,0 +1,21 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Secrets: never commit API keys
+.env
+*.env
+
+# Source documents and anything derived from their text.
+# The ICMR guidance PDF is copyrighted; chunks and indexes contain its full text.
+data/
+index/
+index_*/
+*.pdf
+
+# Cached LLM answers (derived from the document text)
+e2e_cache.jsonl
+**/e2e_cache.jsonl
+.gradio/

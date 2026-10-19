@@ -1,0 +1,10 @@
+pymupdf
+fastembed          # ONNX embeddings, no PyTorch (low RAM)
+faiss-cpu
+rank-bm25
+groq               # or google-generativeai
+gradio
+fastapi
+uvicorn
+dotenv
+gradio

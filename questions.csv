@@ -1,0 +1,57 @@
+question,doc,page,answerable
+What is the minimum number of clinical isolates recommended per group of organisms when validating an AST?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,25,yes
+Which method is the reference method for antimicrobial susceptibility testing?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,25,yes
+"If broth microdilution can't be used, which other methods are acceptable as the reference?",1736941384_guidancedocument_amrdiagnostics_revised.pdf,25,yes
+What minimum categorical agreement must a rapid AST achieve?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,32,yes
+What is a very major error and why is it considered so serious?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,31,yes
+What error rate limit is set for very major errors?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,32,yes
+For which kinds of AST methods can essential agreement be used?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,31,yes
+How many batches are recommended for verifying shelf life in real time?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,26,yes
+How should microbial reference isolates be stored so they keep their properties?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,24,yes
+How many replicates can be run for QC of the reference method?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,23,yes
+What must a developer obtain first for a new IVD when there is no predicate device in the country?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,14,yes
+Which licence form is needed for permission to run a clinical performance evaluation?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,14,yes
+Which form is used to submit clinical study data for approval to manufacture the new IVD?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,15,yes
+For which risk classes of new IVDs is a clinical performance evaluation mandatory?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,15,yes
+Which ISO standard should clinical performance studies follow?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,14,yes
+How many data points are suggested for a limit-of-detection study?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,28,yes
+How many known normal samples are tested to verify a reference interval?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,30,yes
+"If validation at multiple sites is not possible, what is the minimum number of sites?",1736941384_guidancedocument_amrdiagnostics_revised.pdf,18,yes
+How often should storage temperatures for reagents and specimens be recorded?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,20,yes
+Why should a composite reference standard be avoided where possible?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,19,yes
+How is the minimum inhibitory concentration defined?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,19,yes
+Which breakpoints do most Indian laboratories rely on?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,19,yes
+What share of QC results must be in the expected range before validation starts?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,23,yes
+How are minor errors described in terms of their effect on treatment decisions?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,31,yes
+Which factors should be varied when testing reproducibility with QC organisms?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,31,yes
+About how many specimens are typically used in a comparison-of-methods accuracy study?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,29,yes
+Which analysis technique should be avoided because it overestimates sensitivity and specificity?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,35,yes
+For how long must validation records be retained?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,39,yes
+When can a new IVD be exempted from clinical performance evaluation?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,35,yes
+Which resistance genes are detected as the gold standard for methicillin-resistant Staphylococci?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,26,yes
+In which registry must a clinical performance evaluation be recorded before enrolment starts?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,35,yes
+What has to be done if a diagnostic can test more than one specimen type?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,26,yes
+Which three determinants of validity apply to both qualitative and quantitative tests?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,27,yes
+At which concentrations should precision of a qualitative test be assessed?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,29,yes
+A rapid test calls a bug treatable but the lab method says it's actually resistant. What is that mistake called and what's the danger?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,31,yes
+How long should a lab hang on to its test-validation paperwork?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,39,yes
+Which resistance trait can disappear if frozen strains are kept badly?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,24,yes
+Who signs off on the study plan before a company starts trying its device on patients?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,14,yes
+Why do you need more subjects when a test is meant for people with no symptoms?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,22,yes
+Why can't a single genetic marker settle resistance in gram-negative bacteria?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,26,yes
+"When nearly all isolates have very low MICs, why does the overall error rate look unusually small?",1736941384_guidancedocument_amrdiagnostics_revised.pdf,34,yes
+What does it mean for a bacterium to be classed as susceptible-dose dependent?,1736941384_guidancedocument_amrdiagnostics_revised.pdf,30,yes
+What are the CLSI breakpoints for ciprofloxacin against Escherichia coli?,,,no
+How much is the CDSCO application fee for an MD-13 test licence?,,,no
+How many days does CDSCO take to approve a manufacturing licence for an IVD?,,,no
+What antibiotic dose is recommended for carbapenem-resistant Klebsiella infections?,,,no
+Which specific laboratories are approved by CDSCO for performance evaluation of IVDs?,,,no
+What is the recommended first-line treatment for MRSA bloodstream infection?,,,no
+How should whole genome sequencing assays be validated for predicting AMR?,,,no
+What sensitivity is required for malaria rapid diagnostic tests?,,,no
+What is the prevalence of ESBL-producing E. coli in Indian hospitals?,,,no
+What is the price of the NG-Test CARBA 5 kit?,,,no
+Which statistical software should be used for probit regression analysis?,,,no
+What sample size is needed to validate a COVID-19 rapid antigen test?,,,no
+What humidity and temperature conditions should be used for accelerated stability testing?,,,no
+What cut-off value defines a positive result on the MTB RT-PCR kit?,,,no

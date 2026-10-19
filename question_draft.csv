@@ -1,0 +1,57 @@
+question,answerable,evidence
+What is the minimum number of clinical isolates recommended per group of organisms when validating an AST?,yes,A minimum of 100 isolates
+Which method is the reference method for antimicrobial susceptibility testing?,yes,The reference method for AST is MIC determination by the broth microdilution
+"If broth microdilution can't be used, which other methods are acceptable as the reference?",yes,are acceptable substitutes in case of non-availability of BMD
+What minimum categorical agreement must a rapid AST achieve?,yes,90% CA
+What is a very major error and why is it considered so serious?,yes,critical error that leads to use of an ineffective therapeutic
+What error rate limit is set for very major errors?,yes,<3% VME
+For which kinds of AST methods can essential agreement be used?,yes,EA is applicable only to those AST methods that determine MIC values
+How many batches are recommended for verifying shelf life in real time?,yes,minimum of three different batches to verify shelf
+How should microbial reference isolates be stored so they keep their properties?,yes,in 20% glycerol
+How many replicates can be run for QC of the reference method?,yes,up to nine replicates should be tested
+What must a developer obtain first for a new IVD when there is no predicate device in the country?,yes,no predicate device is available in the country
+Which licence form is needed for permission to run a clinical performance evaluation?,yes,CPE by obtaining MD-25
+Which form is used to submit clinical study data for approval to manufacture the new IVD?,yes,using form MD-29
+For which risk classes of new IVDs is a clinical performance evaluation mandatory?,yes,a CPE is mandatory
+Which ISO standard should clinical performance studies follow?,yes,conducted as per the standard ISO 20916:2019
+How many data points are suggested for a limit-of-detection study?,yes,60 data points
+How many known normal samples are tested to verify a reference interval?,yes,testing 20 known normal samples
+"If validation at multiple sites is not possible, what is the minimum number of sites?",yes,a minimum of two different sites
+How often should storage temperatures for reagents and specimens be recorded?,yes,temperatures must be recorded daily
+Why should a composite reference standard be avoided where possible?,yes,can lead to seriously biased
+How is the minimum inhibitory concentration defined?,yes,lowest concentration of an antibiotic which prevents visible growth
+Which breakpoints do most Indian laboratories rely on?,yes,Indian laboratories majorly use CLSI breakpoints
+What share of QC results must be in the expected range before validation starts?,yes,until 95% of results are in the expected range
+How are minor errors described in terms of their effect on treatment decisions?,yes,least detrimental influence on therapeutic decision
+Which factors should be varied when testing reproducibility with QC organisms?,yes,"different personnel/operators, different test batches"
+About how many specimens are typically used in a comparison-of-methods accuracy study?,yes,typically 40 or more specimens
+Which analysis technique should be avoided because it overestimates sensitivity and specificity?,yes,Avoid discrepant analysis techniques
+For how long must validation records be retained?,yes,no less than 2 years
+When can a new IVD be exempted from clinical performance evaluation?,yes,exempted from clinical performance evaluation if it is being marketed
+Which resistance genes are detected as the gold standard for methicillin-resistant Staphylococci?,yes,detection of mecA or mecC
+In which registry must a clinical performance evaluation be recorded before enrolment starts?,yes,Clinical Trial Registry of India
+What has to be done if a diagnostic can test more than one specimen type?,yes,all the analytical and performance studies should be independently repeated
+Which three determinants of validity apply to both qualitative and quantitative tests?,yes,"accuracy, reproducibility and precision have been recommended"
+At which concentrations should precision of a qualitative test be assessed?,yes,"LOD, 20% above LOD, 20% below LOD"
+A rapid test calls a bug treatable but the lab method says it's actually resistant. What is that mistake called and what's the danger?,yes,critical error that leads to use of an ineffective therapeutic
+How long should a lab hang on to its test-validation paperwork?,yes,no less than 2 years
+Which resistance trait can disappear if frozen strains are kept badly?,yes,plasmid-borne resistance can be lost under suboptimal conditions
+Who signs off on the study plan before a company starts trying its device on patients?,yes,for protocol approval by the IVD experts
+Why do you need more subjects when a test is meant for people with no symptoms?,yes,meant to screen asymptomatic individuals
+Why can't a single genetic marker settle resistance in gram-negative bacteria?,yes,multifactorial and not defined by single molecular target
+"When nearly all isolates have very low MICs, why does the overall error rate look unusually small?",yes,the error rate will be considerably less than that of a population
+What does it mean for a bacterium to be classed as susceptible-dose dependent?,yes,susceptibility of an isolate is dependent on the dosing regimen
+What are the CLSI breakpoints for ciprofloxacin against Escherichia coli?,no,
+How much is the CDSCO application fee for an MD-13 test licence?,no,
+How many days does CDSCO take to approve a manufacturing licence for an IVD?,no,
+What antibiotic dose is recommended for carbapenem-resistant Klebsiella infections?,no,
+Which specific laboratories are approved by CDSCO for performance evaluation of IVDs?,no,
+What is the recommended first-line treatment for MRSA bloodstream infection?,no,
+How should whole genome sequencing assays be validated for predicting AMR?,no,
+What sensitivity is required for malaria rapid diagnostic tests?,no,
+What is the prevalence of ESBL-producing E. coli in Indian hospitals?,no,
+What is the price of the NG-Test CARBA 5 kit?,no,
+Which statistical software should be used for probit regression analysis?,no,
+What sample size is needed to validate a COVID-19 rapid antigen test?,no,
+What humidity and temperature conditions should be used for accelerated stability testing?,no,
+What cut-off value defines a positive result on the MTB RT-PCR kit?,no,
